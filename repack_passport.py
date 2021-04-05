@@ -7,6 +7,7 @@ from urllib.parse import parse_qs
 import jwt
 import time
 from pathlib import Path
+import config
 
 """ 
 references used: 
@@ -19,11 +20,11 @@ def get_auth_code_url():
     """Requests RAS login url."""
     url = 'https://stsstg.nih.gov:443/auth/oauth/v2/authorize'
     params = {
-          'client_id': '16082a60-505e-4ac1-a82f-13710ff0cf39',
+          'client_id': config.auth['client_id'],
           'response_type': 'code',
           'scope': 'openid profile email ga4gh_passport_v1',
           'prompt': 'login consent',
-          'redirect_uri': 'http://local.broadinstitute.org/fence-callback',
+          'redirect_uri': config.auth['redirect_uri'],
     }
 
     response = requests.get(url, params=params, allow_redirects=True, timeout=2)
@@ -35,6 +36,7 @@ def get_auth_code_url():
     # This auth code can be used only once.
 
     print("Put the authorize url into a browser to log in.", login_url)
+    print("RAS test username: ", config.ras_login['ras_username'], "   password:", config.ras_login['ras_password'])
     print("If you have recently logged in, you might not have to login again")
 
 
@@ -61,10 +63,11 @@ def get_access_token(auth_code):
     params = {
         'grant_type': 'authorization_code',
         'code': auth_code,
-        'redirect_uri': 'http://local.broadinstitute.org/fence-callback',
+        'redirect_uri': config.auth['redirect_uri'],
         'scope': 'ga4gh_passport_v1',
-        'client_id': '16082a60-505e-4ac1-a82f-13710ff0cf39',
-        'client_secret': 'nullnullnull'
+        'client_id': config.auth['client_id'],
+        'client_secret': config.auth["client_secret"]
+
     }
 
     r = requests.post(url, params=params, headers=headers)
@@ -152,7 +155,7 @@ def create_broad_passport(visas):
             'jti': 'some_unique_token_identifier',
             'scope': 'email profile department idp member sac ga4gh_passport_v1 openid',
             'txn': 'some_transaction_claim',
-            'iss': 'https://app.terra.bio',
+            'iss': config.new_passport['iss'],
             'iat': time.time(),
             'exp': time.time() + 24 * 60 * 60,
             'ga4gh_passport_v1': encoded_visa
@@ -169,9 +172,9 @@ def create_broad_passport(visas):
     # Used RAS userinfo endpoint format for Broad's here
     data = {
         'sub': 'some_subject_identifier',
-        'preferred_username': 'broadtestuser111@era.nih.gov',
-        'userid': 'Broadtestuser111',
-        'email': 'Broadtestuser111@ras.test.nih.gov',
+        'preferred_username': config.new_passport['preferred_username'],
+        'userid': config.ras_login['ras_username'],
+        'email': config.new_passport['email'],
         'txn': 'some_transaction_claim',
         'passport_jwt_v11': encoded_passport
     }

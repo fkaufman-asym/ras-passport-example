@@ -1,0 +1,9 @@
+#config
+config.py
+
+#env
+venv/
+
+#keys
+jwtRS256.key
+
