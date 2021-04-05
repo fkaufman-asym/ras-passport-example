@@ -1,11 +1,22 @@
 # Repackaging NIH RAS GA4GH Passport into a Broad GA4GH Passport
 
-This is a prototype to show how a client could repackage an NIH RAS passport into a Broad signed passport. Both the passport and the visas are encoded.
+A prototype to show how a client could repackage an NIH RAS passport into a Broad signed passport. Both the passport and the visas are encoded.
 
-To run this you'll need:
-1. Broad client_secret for getting the access token from RAS. Add to repack_passport.py. Config pending.
-2. RSA private key for encoding Broad passports. Place in same directory as repack_passport.py
+To run you'll need to update the config. You will need the following:
+1. client_id and client_secret for getting the RAS access token. 
+2. Redirect uri known to RAS
 3. RAS test user and password
+4. For the repackaged passport, you can add an issuer and email or leave blank.
+6. Copy config_template.py and rename to config.py
+
+You will also need an RSA private key for encoding the new passport. Place in same directory as repack_passport.py. To create a key:
+```
+ssh-keygen -t rsa -b 4096 -m PEM -f jwtRS256.key
+# Don't add passphrase
+openssl rsa -in jwtRS256.key -pubout -outform PEM -out jwtRS256.key.pub
+cat jwtRS256.key
+cat jwtRS256.key.pub
+```
 
 ## How to run:  
 ```
