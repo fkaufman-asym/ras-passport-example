@@ -4,7 +4,7 @@ import requests
 import json
 import urllib.parse as urlparse
 from urllib.parse import parse_qs
-import jwt  # jwt requires ("PyJWT==1.7.1")
+import jwt
 import time
 from pathlib import Path
 
@@ -23,7 +23,6 @@ def get_auth_code_url():
           'response_type': 'code',
           'scope': 'openid profile email ga4gh_passport_v1',
           'prompt': 'login consent',
-          # 'redirect_uri': 'http://local.broadinstitute.org/fence-callback',
           'redirect_uri': 'http://local.broadinstitute.org/fence-callback',
     }
 
@@ -32,13 +31,10 @@ def get_auth_code_url():
 
     # RAS only accepts authentication codes so we need to take the authorize url
     # and put it into a browser to log in with our RAS test user on staging.
-    # username: Broadtestuser111
-    # password BGK{$BC\ht
     # You will get a site is not reached page but we can still get the auth code from the url.
     # This auth code can be used only once.
 
     print("Put the authorize url into a browser to log in.", login_url)
-    print("RAS test username: Broadtestuser111   password: BGK{$BC\ht")
     print("If you have recently logged in, you might not have to login again")
 
 
@@ -46,8 +42,8 @@ def get_auth_code():
     """ Parses the auth code from the url after login."""
     callback_url = input("After logging in copy url here: ")
     # Example:
-    # 'http://local.broadinstitute.org/fence-callback?code=356d02d5-5664-49dd-bba1-c2f6529bddb1& \
-    # correlationID=nihgw-wfn7JmcZ2XY=.fabd97d17d20b632'
+    # 'http://local.broadinstitute.org/fence-callback?code=356stringdb1& \
+    # correlationID=nihgw-string0b632'
 
     p = urlparse.urlparse(callback_url)
     auth_code = parse_qs(p.query)['code'][0]
@@ -77,9 +73,9 @@ def get_access_token(auth_code):
     #   "access_token":"eyJ0eXAsomethingverylongD1g",
     #   "token_type":"Bearer",
     #   "expires_in":1800,
-    #   "refresh_token":"551ca2e3-70d7-435e-b00d-1e089ee4e2e9",
+    #   "refresh_token":"551ca2e3-string-1e089ee4e2e9",
     #   "scope":"openid profile email ga4gh_passport_v1",
-    #   "sub":"bCbsufBJvApw6RKmMpv-2f-ZI2kkhhGFBEJMyBHKap4",
+    #   "sub":"bCbsufBstringBHKap4",
     #   "id_token":"eyJ0eXAsomethingverylong40CxA",
     #   "id_token_type":"urn:ietf:params:oauth:grant-type:jwt-bearer"
     # }
@@ -100,11 +96,11 @@ def get_passport(access_token):
 
     r = requests.get(url, headers=headers_auth, allow_redirects=True)
     # Example response:
-    # {'sub': 'bCbsufBJvApw6RKmMpv-2f-ZI2kkhhGFBEJMyBHKap4',
+    # {'sub': 'bCbsufBstringBHKap4',
     # 'preferred_username': 'broadtestuser111@era.nih.gov',
     # 'userid': 'Broadtestuser111',
     # 'email': 'Broadtestuser111@ras.test.nih.gov',
-    # 'txn': 'vRWagEEd+0Q=.fabd97d17d20c054',
+    # 'txn': 'vRWstring054',
     # 'passport_jwt_v11': 'eyJ0eXAiOiverylongXrzUSwmw'}
 
     print("RAS userinfo response: ", r.json())
@@ -116,10 +112,10 @@ def decode_passport(passport_jwt):
     """Decodes the passport JWT."""
     decoded_passport = jwt.decode(passport_jwt, verify=False)
     # Example decoded passport:
-    # {'sub': 'bCbsufBJvApw6RKmMpv-2f-ZI2kkhhGFBEJMyBHKap4',
-    # 'jti': 'b2fb39cc-d536-419e-b3e0-d2f6483c896f',
+    # {'sub': 'bCbsufBstringBHKap4',
+    # 'jti': 'b2fb39cc-string-d2f6483c896f',
     # 'scope': 'openid profile email ga4gh_passport_v1',
-    # 'txn': 'vRWagEEd+0Q=.fabd97d17d20c054',
+    # 'txn': 'vRWagEstring0c054',
     # 'iss': 'https://stsstg.nih.gov',
     # 'iat': 1617473120,
     # 'exp': 1617516320,
