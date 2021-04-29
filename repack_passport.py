@@ -84,6 +84,7 @@ def get_access_token(auth_code):
     # }
 
     j = r.json()
+    print("RAS token response: ", j) #HHEHHHEHRHEH
     print("RAS Access token: ", j['access_token'])
     return j['access_token']
 
@@ -136,18 +137,11 @@ def decode_visas(encoded_visas):
     return decoded_visas
 
 
-def create_broad_passport(visas):
-    """Encode visas and passport to make a signed Broad passport"""
+def create_broad_passport(encoded_visa):
+    """Encode passport to make a signed Broad passport with RAS encoded Visas"""
 
     private_key = Path('jwtRS256.key').read_text()    # generated an RSA private key beforehand.
     private_key = private_key.replace('\n', '')
-
-    encoded_visa = jwt.encode(
-        visas,
-        private_key
-    ).decode('UTF8')
-
-    print("Broad encoded visa : ", encoded_visa)
 
     encoded_passport = jwt.encode(
         {
@@ -189,7 +183,7 @@ def main():
     passport_jwt = get_passport(access_token)
     encoded_visas = decode_passport(passport_jwt)
     visas = decode_visas(encoded_visas)
-    create_broad_passport(visas)
+    create_broad_passport(encoded_visas)
 
 
 if __name__ == '__main__':
