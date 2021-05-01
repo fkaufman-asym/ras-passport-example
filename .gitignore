@@ -7,3 +7,5 @@ venv/
 
 #keys
 jwtRS256.key
+working/scripts/repackage_python_script/jwtRS256.key
+working/scripts/repackage_python_script/jwtRS256.key.pub
