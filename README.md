@@ -3,7 +3,7 @@
 A prototype to show how a client could repackage an NIH RAS passport into a Broad signed passport. Both the passport and the visas are encoded.
 
 To run you'll need to update the config. You will need the following:
-1. client_id and client_secret for getting the RAS access token. 
+1. client_id and client_secret for getting the RAS access token.
 2. Redirect uri known to RAS
 3. RAS test user and password
 4. For the repackaged passport, you can add an issuer and email or leave blank.
@@ -25,5 +25,41 @@ cd ras-passport-example
 virtualenv -p python3.7 venv && . venv/bin/activate && pip install -r requirements.txt
 python3 repack_passport.py
 ```
-## Note: 
+## Note:
 You will be prompted to put the RAS authorize url into a browser and login with your RAS test user. After logging in take that new url and paste into the cmd line to proceed.
+
+## Docker-Based
+
+### Origin
+
+This project is inspired by, and forked from, this blog post:
+
+**🐳 Simplified guide to using Docker for local development environment**
+
+_The blog link :_
+
+[https://blog.atulr.com/docker-local-environment/](https://blog.atulr.com/docker-local-environment/)
+
+### Running
+
+To run the example:
+
+`docker-compose up` or `docker-compose up -d` if you want to avoid console output
+
+Details about each service and how to run them is present in the individual services directories.
+
+### Connecting to Python Dev Environments
+
+Once you launch with `docker-compose up` you can login in to the Python service
+container using:
+
+
+    $> bash connect.sh
+    # inside the Docker container
+    #> cd ~/py-dev/scripts/repackage_python_script
+
+
+
+### Python Server
+
+The flask server is running on `http://localhost:9000` and just returns "Hello from py1"
