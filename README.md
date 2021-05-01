@@ -40,7 +40,7 @@ _The blog link :_
 
 [https://blog.atulr.com/docker-local-environment/](https://blog.atulr.com/docker-local-environment/)
 
-### Running
+### Launching Python Dev Environment
 
 To run the example:
 
@@ -48,7 +48,7 @@ To run the example:
 
 Details about each service and how to run them is present in the individual services directories.
 
-### Connecting to Python Dev Environments
+### Connecting to Python Dev Environment
 
 Once you launch with `docker-compose up` you can login in to the Python service
 container using:
@@ -58,7 +58,9 @@ container using:
     # inside the Docker container
     #> cd ~/py-dev/scripts/repackage_python_script
 
+### Executing the Python Script
 
+    #> python repack_passport.py
 
 ### Python Server
 

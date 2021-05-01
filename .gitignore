@@ -1,6 +1,5 @@
 #config
-config.py
-working/scripts/repackage_python_script/config.py
+*config.py
 
 #env
 venv/
