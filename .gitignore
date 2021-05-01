@@ -1,9 +1,9 @@
 #config
 config.py
+working/scripts/repackage_python_script/config.py
 
 #env
 venv/
 
 #keys
 jwtRS256.key
-
