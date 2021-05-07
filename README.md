@@ -54,6 +54,8 @@ To run the example:
 
 `docker-compose up` or `docker-compose up -d` if you want to avoid console output
 
+`docker-compose up --build` to force a rebuild
+
 Details about each service and how to run them is present in the individual services directories.
 
 ### Connecting to Python Dev Environment
@@ -90,3 +92,43 @@ container so make sure you create that in the repackaging example above and
 run through the whole login flow to generate the resigned JWT ("Broad_encoded_passport.txt").
 
 ## Example Client-Server Mutual Authentication with Nginx
+
+This needs to be built into the Dockerfile for a second python based service.
+But for now, I'm following the tutorial here:
+
+https://levelup.gitconnected.com/certificate-based-mutual-tls-authentication-with-nginx-57c7e693759d
+
+With one note, the following line should be:
+
+  ssl_verify_client       on;
+
+Not "yes" as it is in the tutorial.
+
+I also connected to localhost:9000 for the proxy instead of localhost:5000 in the tutorial.
+
+```
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        # SSL configuration
+        #
+        listen 443 ssl default_server;
+        listen [::]:443 ssl default_server;
+        ssl_certificate         /etc/ssl/selfsigned/server.crt;
+        ssl_certificate_key     /etc/ssl/selfsigned/server.key;
+        ssl_client_certificate  /etc/ssl/selfsigned/client.crt;
+        ssl_verify_client       on;
+
+...
+
+location / {
+        # First attempt to serve request as file, then
+        # as directory, then fall back to displaying a 404.
+        #####try_files $uri $uri/ =404;
+        proxy_pass http://localhost:9000/;
+
+}
+```
+
+LEFT OFF WITH: need to show an example of a curl using the client certificate.

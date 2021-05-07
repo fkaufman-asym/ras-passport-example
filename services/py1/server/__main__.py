@@ -7,7 +7,7 @@ from cryptography.hazmat.primitives import serialization
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route("/service-info")
 def hello():
     return "Hello from drs!"
 
