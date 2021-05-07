@@ -151,7 +151,7 @@ def create_broad_passport(encoded_visa):
     """Encode passport to make a signed Broad passport with RAS encoded Visas"""
 
     private_key = Path('jwtRS256.key').read_text()    # generated an RSA private key beforehand.
-    private_key = private_key.replace('\n', '')
+    #private_key = private_key.replace('\n', '')
 
     encoded_passport = jwt.encode(
         {
@@ -169,11 +169,12 @@ def create_broad_passport(encoded_visa):
                  'typ': 'JWT',
                  'alg': 'RS256',
                  'kid': 'some_key_identifier'
-        }
+        },
+        algorithm="RS256"
     ).decode('UTF8')
     #print("Broad encoded passport: ", encoded_passport)
     print("Broad encoded passport: ")
-    save("Broad encoded passport", json.dumps(encoded_passport))
+    save("Broad encoded passport", encoded_passport)
 
     # Used RAS userinfo endpoint format for Broad's here
     data = {

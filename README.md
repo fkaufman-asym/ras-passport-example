@@ -1,4 +1,6 @@
-# Repackaging NIH RAS GA4GH Passport into a Broad GA4GH Passport
+# NIH RAS GA4GH Passport Repackaging, GA4GH DRS Passport, and Mututal SSL Authentication Examples
+
+## Repackaging NIH RAS GA4GH Passport into a Broad GA4GH Passport
 
 A prototype to show how a client could repackage an NIH RAS passport into a Broad signed passport. Both the passport and the visas are encoded.
 
@@ -28,7 +30,7 @@ python3 repack_passport.py
 ## Note:
 You will be prompted to put the RAS authorize url into a browser and login with your RAS test user. After logging in take that new url and paste into the cmd line to proceed.
 
-## Docker-Based
+## Docker-Based Repackaging NIH RAS GA4GH Passport into a Broad GA4GH Passport
 
 ### Origin
 
@@ -65,3 +67,15 @@ container using:
 ### Python Server
 
 The flask server is running on `http://localhost:9000` and just returns "Hello from py1"
+
+
+## Example POST'ing Passport to a Mock DRS Server
+
+### Creating Token
+
+Take the token from "Broad_encoded_passport.txt"
+
+  % export token=`cat ./working/scripts/repackage_python_script/Broad_encoded_passport.txt`
+  % curl -X POST -d "token=$token" 'http://localhost:9000/ga4gh/drs/v1/objects/12192312'
+
+## Example Client-Server Mutual Authentication with Nginx
