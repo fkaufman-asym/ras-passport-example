@@ -1,4 +1,10 @@
-# NIH RAS GA4GH Passport Repackaging, GA4GH DRS Passport, and Mututal SSL Authentication Examples
+# NIH RAS GA4GH Passport Prototyping
+
+This repo was created to prototype the following:
+
+* Repackaging and signing a RAS GA4GH Passports, see [original repo](https://github.com/broadinstitute/ras-passport-example) by Nicole B
+* Demonstrating how to POST a JWT passport to access a GA4GH DRS endpoint
+* Demonstrating how a client/DRS server can be secured with mutual SSL Authentication
 
 ## Repackaging NIH RAS GA4GH Passport into a Broad GA4GH Passport
 
@@ -30,7 +36,7 @@ python3 repack_passport.py
 ## Note:
 You will be prompted to put the RAS authorize url into a browser and login with your RAS test user. After logging in take that new url and paste into the cmd line to proceed.
 
-## Docker-Based Repackaging NIH RAS GA4GH Passport into a Broad GA4GH Passport
+## Docker-Based: Repackaging NIH RAS GA4GH Passport into a Broad GA4GH Passport
 
 ### Origin
 
@@ -69,7 +75,7 @@ container using:
 The flask server is running on `http://localhost:9000` and just returns "Hello from py1"
 
 
-## Example POST'ing Passport to a Mock DRS Server
+## Demonstrating POST'ing a Passport JWT to a Mock DRS Server
 
 ### Creating Token
 
@@ -77,5 +83,10 @@ Take the token from "Broad_encoded_passport.txt"
 
   % export token=`cat ./working/scripts/repackage_python_script/Broad_encoded_passport.txt`
   % curl -X POST -d "token=$token" 'http://localhost:9000/ga4gh/drs/v1/objects/12192312'
+
+The return is a DRS response.  If you get a stacktrace then the verification of the signature was likely incorrect.
+The service is referencing the file /root/py-dev/scripts/repackage_python_script/jwtRS256.key.pub in the
+container so make sure you create that in the repackaging example above and
+run through the whole login flow to generate the resigned JWT ("Broad_encoded_passport.txt").
 
 ## Example Client-Server Mutual Authentication with Nginx

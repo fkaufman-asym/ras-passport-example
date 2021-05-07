@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 import os
 import jwt
 from cryptography.hazmat.backends import default_backend
@@ -21,8 +21,9 @@ def object(myId):
             key_file.read(),
             backend=default_backend()
             )
+        # this will throw an exception if the JWT doesn't verify, see https://stackoverflow.com/questions/29650495/how-to-verify-a-jwt-using-python-pyjwt-with-public-key/48916883
         message = jwt.decode(token, public_key, algorithms=['RS256'])
-        return 'Hello POST from drs object id: %d token: %s decode message: %s' % (myId, token, str(message))
+        return render_template('object.json', myId=myId)
     else:
         return 'invalid, use POST'
 
