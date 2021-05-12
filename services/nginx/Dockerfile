@@ -20,7 +20,8 @@ RUN cd /etc/ssl && \
   openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout server.key -out server.crt -subj "/C=US/ST=California/L=Los Angeles/O=.../OU=.../CN=.../emailAddress=..." && \
   openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout client.key -out client.crt -subj "/C=US/ST=California/L=Los Angeles/O=.../OU=.../CN=.../emailAddress=..." && \
   openssl pkcs12 -export -out client.pfx -inkey client.key -in client.crt -passout pass:password && \
-  cp client.pfx /var/www/html/
+  cp client.pfx /var/www/html/ && \
+  cp server.crt /var/www/html/
 
 # now setup Nginx
 RUN cd /etc/nginx/conf.d && \
