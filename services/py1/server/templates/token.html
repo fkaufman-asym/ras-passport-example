@@ -1,0 +1,54 @@
+<html>
+<body>
+<h1>GA4GH Passport + DRS Prototyping</h1>
+<h2>Your JWT Passport with Embedded NIH RAS Visas</h2>
+<p>This is the re-signed Passport that includes the RAS signed visas</p>
+<textarea rows="10" cols="200">{{ token }}</textarea>
+
+<p>The public key you can use to verify the signature on this JWT</p>
+<textarea rows="10" cols="80">{{ public_key }}</textarea>
+
+<p>You can decode and verify the signature on this JWT using <a href="https://jwt.io/">jwt.io</a></p>
+
+<h2>Data Access Examples</h2>
+
+<h3>DRS Object Info Request</h3>
+<p>
+  This is just a GET request to get information about a particular object. In
+  this case the GET can be done without credentials and what is returned is
+  the DRS object in JSON. Other DRS servers may require a passport via POST
+  to access even just the object info but in this mock server we don't.
+</p>
+<p>click <a href="http://localhost:9000/ga4gh/drs/v1/objects/12345">here</a></p>
+
+<h3>DRS Object Request</h3>
+<p>
+  Now that we know the particular object we want to access (12345), and the access ID (s3),
+  we need to actually get a signed URL to download the file.  Here we have to
+  use a POST of the passport you got above to generate a redirect to a
+  simulated signed url.  If you download a file, things are working correctly.
+</p>
+<p>
+<form action="http://localhost:9000/ga4gh/drs/v1/objects/12345/access/s3" method="post">
+  <input type="text" name="token" value="{{ token }}">
+  <input type="submit">
+</form>
+</p>
+
+
+<h3>DRS Object Request with TLS Mutual Authentication</h3>
+<p>
+  This is the same as the previous but uses TLS mutual authentication between the
+  client (your web browser) and the DRS server.  To get this to work you need to
+  download and install this <a href="http://localhost:9002/client.pfx">client certificate</a>.
+  Google how to do this for your browser.
+</p>
+<p>
+<form action="https://localhost:9001/ga4gh/drs/v1/objects/12345/access/s3" method="post">
+  <input type="text" name="token" value="{{ token }}">
+  <input type="submit">
+</form>
+</p>
+
+</body>
+</html>
