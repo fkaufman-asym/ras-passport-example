@@ -6,7 +6,7 @@ This repository was intended to provide a concrete example of using
 [GA4GH Passports](https://github.com/ga4gh-duri/ga4gh-duri.github.io/blob/master/researcher_ids/ga4gh_passport_v1.md#passport)
 with a [GA4GH DRS](https://github.com/ga4gh/data-repository-service-schemas) service to
 identify and authorize users to access data. It is hoped this prototype will
-address any remaining concerns about using NIH RAS passports to access
+address technical concerns about using NIH RAS passports to access
 DRS servers (and the data they host) for the AnVIL, BioData Catalyst, CRDC, and Kids First NIH programs.
 The design is discussed in more details in the document ['20210506 - RAS Authn/Authz "Milestone 3" Design with GA4GH Passports'](https://docs.google.com/document/d/1amOGLwAbKkMSU6up_dHGhsuUF9SVFlllO0qjQSJYuVI/edit#heading=h.ae0t5ovrzrv).
 
@@ -24,7 +24,7 @@ This project organization is inspired by, and forked from, this blog post:
 
 ## Dependencies
 
-To get this demo to work you will need two things:
+To get this demo to work you will need three things:
 
 * a RAS staging client ID and secret, contact the [RAS team](https://auth.nih.gov/docs/RAS/serviceofferings.html) to obtain this
 * Docker (with docker-compose)
