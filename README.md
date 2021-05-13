@@ -1,5 +1,9 @@
 # GA4GH Passport + DRS Prototyping
 
+## DEPRECATED
+
+I merged the changes in this repo back into the parent [repo](https://github.com/broadinstitute/ras-passport-example).  Please use the parent repo.
+
 ## About
 
 This repository was intended to provide a concrete example of using
