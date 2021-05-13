@@ -1,9 +1,10 @@
 #config
-config.py
+*config.py
 
 #env
 venv/
 
 #keys
-jwtRS256.key
 
+*__pycache__
+*.DS_Store
