@@ -1,9 +1,5 @@
 # GA4GH Passport + DRS Prototyping
 
-## DEPRECATED
-
-I merged the changes in this repo back into the parent [repo](https://github.com/broadinstitute/ras-passport-example).  Please use the parent repo.
-
 ## About
 
 This repository was intended to provide a concrete example of using
@@ -166,7 +162,7 @@ If everything works then the sample cram file should download.
 In the future we could improve this demo code by:
 
 * adding different options for GA4GH Passport Brokers beyond NIH RAS
-* supporting this service as a full-featured Passport Broker 
+* supporting this service as a full-featured Passport Broker
 * support for more full-featured DRS servers beyond the mock one in this demo
 * ensuring mutual authentication works on multiple browsers beyond Chrome
 * moving to a plugin for apache or nginx that can do mutual authentication plus other filtering (such as geolocation and user restrictions)
