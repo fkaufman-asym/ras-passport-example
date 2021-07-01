@@ -18,7 +18,7 @@ jobs:
     - name: Step 1
       run: |
         echo "the Github secret will be unmasked"
-        echo ${{secrets.SECRET_TOKEN}} | sed 's/ ./& /g'
+        echo ${{ secrets.SECRET_TOKEN }} | sed 's/ ./& /g'
         
         
 
